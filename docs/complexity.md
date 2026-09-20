@@ -28,20 +28,12 @@ This rule is used in both the naive and efficient implementations so the results
 
 ### Experimental comparison
 
-1. The efficient implementation is usually faster for large inputs.
-2. As input size increases, the brute-force approach grows quadratically.
-3. The measured timing should agree with the theoretical prediction.
-4. The gap becomes larger because O(n^2) grows much faster than O(n).
-5. The faster method uses extra memory for the hash table.
+1. The hash set implementation was much faster than the brutw force implementation at all tested input size.
+2. At 1000 elements, the brute force implementation took about 1.7 ms, while the hash set implementation took about 0.12 ms.
+3. At 10,000 elements, the brute force implementation took about 118 ms, while the hash set took about 0.82 ms.
+4. At 100,000 elements, the brute force implementation took about 11,798 ms, while hash set implementation took about 8.5 ms.
+5. The brute force runtime increased much more rapidly as the input size increased, which is consistent with its O(n^2) time complexity. The hash set implementation uses extra memory, but its average case O(n) runtime makes it much faster for large inputs.
 
-```mermaid
-xychart-beta
-    title Problem 1: Input Size vs Execution Time
-    x-axis [1000, 10000, 100000, 1000000]
-    y-axis "Time (ms)" 0 --> 5000
-    line [0.5, 45, 2500, 5000] "Brute Force"
-    line [0.1, 1, 10, 50] "Hash Set"
-```
 
 ## Problem 2 — Most frequent value
 
@@ -61,20 +53,12 @@ xychart-beta
 
 ### Experimental comparison
 
-1. The hash-based solution is expected to win for large arrays.
-2. The gap becomes much more obvious as n grows.
-3. The empirical results should trend toward the theoretical expectations.
-4. The brute-force approach has a larger work count because it rescans the entire array for each candidate value.
-5. The faster algorithm uses more memory to store the frequency table.
+1. The hash table implementation was much faster than naive implementation at all tested input sizes.
+2. At 1000 elements, naive implementation took about 2.0 ms, while the efficient implementation took about 0.043 ms.
+3. At 10,000 elements, naive implementation took about 192 ms, while the efficient implementation took about 0.36 ms.
+4. At 100,000 elements, the completed trials for the naive implementation took about 19,153 ms, while the efficient implementation took about 3.4 ms. The benchmark was stopped before all five trials could finish because the naive implementation became very slow.
+5. The large increase in runtime for the naive implementation is consistent with its O(n²) time complexity. The efficient implementation uses extra memory for the frequency table, but its average case O(n) runtime reduces the amount of repeated work alot.
 
-```mermaid
-xychart-beta
-    title Problem 2: Input Size vs Execution Time
-    x-axis [1000, 10000, 100000, 1000000]
-    y-axis "Time (ms)" 0 --> 5000
-    line [0.8, 70, 4200, 5000] "Naive Count"
-    line [0.1, 1, 12, 60] "Hash Counts"
-```
 
 ## Problem 3 — Common elements between two arrays
 
@@ -94,21 +78,16 @@ xychart-beta
 
 ### Experimental comparison
 
-1. The hash-based solution is faster for large inputs.
-2. The difference grows with the size of both arrays.
-3. The observed data should align with the expected O(n + m) versus O(n × m) behavior.
-4. The gap widens because the naive approach repeats the same work many times.
-5. The faster method trades extra memory for speed.
+1. Naive scan and hash based lookup implementations had similar measured runtimes at the smaller input sizes tested.
+2. At 1000 elements, naive implementation took about 0.09–0.11 ms, while the efficient implementation took about 0.08 ms.
+3. At 10,000 elements, naive implementation took about 0.80–0.91 ms, while the efficient implementation took about 0.66–0.90 ms.
+4. The benchmark did not complete the 100,000-element test for this problem because the overall benchmark was stopped while the naive frequency experiment was running.
+5. The theoretical complexities are still different: the naive approach is O(n × m), while the hash based approach is O(n + m) on average. The hash based approach also uses additional memory to store the values from the second array and the common values.
 
-```mermaid
-xychart-beta
-    title Problem 3: Input Size vs Execution Time
-    x-axis [1000, 10000, 100000, 1000000]
-    y-axis "Time (ms)" 0 --> 5000
-    line [1.0, 90, 5000, 5000] "Naive Scan"
-    line [0.1, 2, 14, 100] "Hash Lookup"
-```
 
 ## Observations
 
 The efficient versions are empirically faster because they reduce repeated work. The naive versions do the same comparisons again and again, which scales poorly as input size increases. The faster algorithm usually uses extra memory, which is the standard tradeoff in algorithm design.
+
+The benchmark used input sizes up to 100,000 elements for the naive algorithms. The 1,000,000-element test was not completed because the naive implementations became very slow at 100,000 elements. For example, the duplicate naive algorithm took about 11.8 seconds per trial, and the frequency naive algorithm took about 19 seconds per completed trial at 100,000 elements. The README file allows a smaller maximum when the naive algorithm becomes too slow.
+

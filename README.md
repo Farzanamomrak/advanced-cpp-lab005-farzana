@@ -1,23 +1,6 @@
 # Lab 5 — Algorithm Analysis and Performance Comparison
 
-## Course: CS 20 — Advanced Programming with C++
-
-This lab is intentionally small in scope but conceptually deep. Students are given three straightforward algorithmic problems and are asked to implement two correct solutions for each one.
-
-The key idea is simple:
-
-Two correct programs can produce the same answer while having dramatically different performance because of their algorithms.
-
-## Learning objectives
-
-By the end of this lab, students should be able to:
-
-- implement two correct solutions to the same problem;
-- identify the Big-O complexity of each solution;
-- compare performance using wall-clock timing;
-- explain why a more efficient algorithm is faster in practice;
-- verify correctness before benchmarking;
-- produce and analyze benchmark data in CSV format.
+k data in CSV format.
 
 ## Problems
 
@@ -113,6 +96,10 @@ duplicate,efficient,1000,1,45678
 
 This makes it easy to plot the results in Python, Excel, or another tool.
 
+## Benchmark size note 
+
+The naive algorithms were benchmarked up to 100,000 elements. The 1,000,000 elements test was not completed becasue naive implementations became very slow at 100,000 elements. For exmaple, the duplicate naive algorithm took about 11.8 seconds per trail, and the frequency naive algorithm took about 19 seconds per completed trial at 100,000 elements. Asmaller maximum was therefore used for the naive experiments as allowed by the assignement instructions. 
+
 ## Correctness requirements
 
 Before running performance tests, both implementations for each problem must be validated.
@@ -175,6 +162,23 @@ This lab should take about 4 to 6 hours and is suitable as an early algorithm-an
 ```bash
 make test
 make benchmark
-```
+```## Course: CS 20 — Advanced Programming with C++
+
+This lab is intentionally small in scope but conceptually deep. Students are given three straightforward algorithmic problems and are asked to implement two correct solutions for each one.
+
+The key idea is simple:
+
+Two correct programs can produce the same answer while having dramatically different performance because of their algorithms.
+
+## Learning objectives
+
+By the end of this lab, students should be able to:
+
+- implement two correct solutions to the same problem;
+- identify the Big-O complexity of each solution;
+- compare performance using wall-clock timing;
+- explain why a more efficient algorithm is faster in practice;
+- verify correctness before benchmarking;
+- produce and analyze benchmar
 
 The goal is to understand performance, not to create complex problem statements. The assignment is intentionally simple so that students focus on observing the practical effects of algorithmic complexity.
